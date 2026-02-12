@@ -3,7 +3,7 @@ on:
   workflow_run:
     workflows: ["Continuous Integration"]  # 감시할 워크플로우 이름.
     types:
-    - completed  # 감시할 상태. (즉 worflow_run 다른 워크 플로우의 실행 결과에 반응해서 나를 실행해라. 감시할 워크플로우는 ["Continuous Integration"]이다. )
+      - completed  # 감시할 상태. (즉 worflow_run 다른 워크 플로우의 실행 결과에 반응해서 나를 실행해라. 감시할 워크플로우는 ["Continuous Integration"]이다. )
 
   workflow_dispatch:
 
