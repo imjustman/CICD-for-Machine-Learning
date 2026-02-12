@@ -1,6 +1,6 @@
 install:
     pip install --upgrade pip &&\
-        pip install -r requirements.txt
+    pip install -r requirements.txt
 
 format:
     black *.py      # 터미널에 "make format"을 치면 Black이 내 프로젝트의 모든 파이썬 파일을 읽어서 보기 좋게 코드를 자동으로 다시 써준다.
