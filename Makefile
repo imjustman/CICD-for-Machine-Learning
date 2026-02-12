@@ -21,3 +21,16 @@ update-branch:  # 학습 결과로 인해 변경된 파일들을 깃허브 저�
 	git commit -am "Update with new results"
 	git push --force origin HEAD:update
 # main 브랜치에는 우리가 짠 순수 소스 코드만 깔끔하게 보관하고, update 브랜치에는 **AI가 만들어낸 결과물(로그, 그래프, 모델 파일)**만 따로 모아서 관리하는 것이 협업할 때 훨씬 보기 좋습니다.
+
+hf-login:
+	git pull origin update
+	git switch update
+	pip install -U "huggingface_hub[cli]"
+	huggingface-cli login --token $(HF) --add-to-git-credential
+
+push-hub:
+	huggingface-cli upload SummerHack/Drug-Classification ./App --repo-type=space --commit-message="Sync App files"
+	huggingface-cli upload SummerHack/Drug-Classification ./Model /Model --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload SummerHack/Drug-Classification ./Results /Metrics --repo-type=space --commit-message="Sync Model"
+
+deploy: hf-login push-hub
