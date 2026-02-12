@@ -1,0 +1,25 @@
+name: CI
+on:  # 언제 이 작업을 시작할까?라는 트리거를 선언하는 부분.
+  push:  # main 브랜치에 코드가 Push될 때 실행한다!(로컬에서 작업하고 git push origin main을 하는 순간.)
+    branches: [ "main" ] 
+  pull_request:  # main브랜치를 향해 Pull Request가 생성되거나 업데이트될 때 실행한다.(팀원이 내가 만든 코드를 main에 합쳐줘! 라고 요청하면 합치기 전에 코드가 멀쩡한지 미리 확인해보는 용도.)
+    branches: [ "main" ]
+  workflow_dispatch:  # 수동 실행 버튼을 활성화한다.(코드 Push나 PR이 없더라도 깃허브 웹사이트 UI에서 직접 "Run workflow" 버튼을 눌러서 강제로 실행히키고 싶을 때 사용.)
+
+permissions: write-all  # 이 워크플로우에 깃허브 저장소의 모든 데이터를 수정할 수 있는 전체 권한을 부여.
+jobs:  # 실제 수행할 작업들의 묶음을 정의하는 시작점.
+  build:  # 이 작업의 이름. 빌드 작업이라는 뜻으로 관례적으로 쓰인다.
+    runs-on: ubuntu-latest  # 작업을 실행할 가상 서버의 운영체제를 선택.
+    steps:  
+      - uses: actions/checkout@v3  # 현재 내 깃허브 저장소에 있는 코드를 가상 서버로 복제한다.
+      - uses: iterative/setup-cml@v2  # 리포트 댓글을 달 때 쓴다고 했던 CML환경을 세팅한다.
+      - name: Install Packages
+        run: make install
+      - name: Format
+        run: make format
+      - name: Train
+        run: make train
+      - name: Evaluation
+        env:  # 깃허브가 자동으로 생성해주는 비밀 열쇠. REPO_TOKEN이라는 이름으로 CML에게 넘겨줘야 CML이 주인을 대신해 댓글을 쓸 수 있는 권한을 얻게 된다.
+          REPO_TOKEN: ${{secrets.GITHUB_TOKEN}}  # 깃허브 액션은 워크플로우가 시작될 때마다 해당 저장소에 접근할 수 있는 임시 권한을 스스로 만든다.
+        run: make eval
