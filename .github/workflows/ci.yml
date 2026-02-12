@@ -1,4 +1,4 @@
-name: CI
+name: Continuous Integration
 on:  # 언제 이 작업을 시작할까?라는 트리거를 선언하는 부분.
   push:  # main 브랜치에 코드가 Push될 때 실행한다!(로컬에서 작업하고 git push origin main을 하는 순간.)
     branches: [ "main" ] 
