@@ -33,4 +33,5 @@ push-hub:
 	hf upload SummerHack/Drug-Classification ./Model /Model --repo-type=space --commit-message="Sync Model"
 	hf  upload SummerHack/Drug-Classification ./Results /Metrics --repo-type=space --commit-message="Sync Model"
 
+
 deploy: hf-login push-hub
