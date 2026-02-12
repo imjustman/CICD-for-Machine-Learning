@@ -26,11 +26,11 @@ hf-login:
 	git pull origin update
 	git switch update
 	pip install -U "huggingface_hub[cli]"
-	huggingface-cli login --token $(HF) --add-to-git-credential
+	python3 -m huggingface-cli login --token $(HF) --add-to-git-credential
 
 push-hub:
-	huggingface-cli upload SummerHack/Drug-Classification ./App --repo-type=space --commit-message="Sync App files"
-	huggingface-cli upload SummerHack/Drug-Classification ./Model /Model --repo-type=space --commit-message="Sync Model"
-	huggingface-cli upload SummerHack/Drug-Classification ./Results /Metrics --repo-type=space --commit-message="Sync Model"
+	python3 -m huggingface-cli upload SummerHack/Drug-Classification ./App --repo-type=space --commit-message="Sync App files"
+	python3 -m huggingface-cli upload SummerHack/Drug-Classification ./Model /Model --repo-type=space --commit-message="Sync Model"
+	python3 -m huggingface-cli upload SummerHack/Drug-Classification ./Results /Metrics --repo-type=space --commit-message="Sync Model"
 
 deploy: hf-login push-hub
