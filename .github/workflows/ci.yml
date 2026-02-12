@@ -23,3 +23,8 @@ jobs:  # 실제 수행할 작업들의 묶음을 정의하는 시작점.
         env:  # 깃허브가 자동으로 생성해주는 비밀 열쇠. REPO_TOKEN이라는 이름으로 CML에게 넘겨줘야 CML이 주인을 대신해 댓글을 쓸 수 있는 권한을 얻게 된다.
           REPO_TOKEN: ${{secrets.GITHUB_TOKEN}}  # 깃허브 액션은 워크플로우가 시작될 때마다 해당 저장소에 접근할 수 있는 임시 권한을 스스로 만든다.
         run: make eval
+      - name: Update Branch
+        env:
+          NAME: ${{ secrets.USER_NAME }}
+          EMAIL: ${{ secrets.USER_EMAIL }}
+        run: make update-branch USER_NAME=$NAME USER_EMAIL=$EMAIL
