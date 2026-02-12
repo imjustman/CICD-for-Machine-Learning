@@ -17,6 +17,6 @@ eval:
 
 update-branch:  # 학습 결과로 인해 변경된 파일들을 깃허브 저장소에 다시 기록하고, 이를 새로운 브랜치에 강제로 반영하라 라는 자동화 명령어 세트.(보통 모델 학습이 끝나면 metrics.txt같은 새로운 결과파일이 생긴다. 이를 내 컴퓨터가 아닌 GitHub Actions서버가 직접 내 저장소에 커밋할 때 사용한다.)
 	git config --global user.name $(USER_NAME)
-	git config --global user.email &(USER_EMAIL)
+	git config --global user.email $(USER_EMAIL)
 	git commit -am "Update with new results"
 	git push --force origin HEAD:update
